@@ -1,6 +1,6 @@
-name: opsless/ms-teams-github-actions
+name: a9650615/ms-teams-notify
 description: Microsoft Teams Github Actions integration
-author: opsless.io team
+author: a9650615
 inputs:
   github-token:
     required: true

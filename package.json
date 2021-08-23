@@ -1,6 +1,6 @@
 {
-  "name": "@opsless/ms-teams-github-actions",
-  "version": "0.2.3",
+  "name": "@a9650615/ms-teams-notify",
+  "version": "0.0.2",
   "private": true,
   "description": "MS Teams Github Actions integration",
   "main": "lib/main.js",
@@ -13,7 +13,7 @@
     "test": "jest",
     "all": "npm run build && npm run format && npm run lint && npm run package && npm test"
   },
-  "author": "opsless.io team",
+  "author": "a9650615",
   "license": "MIT",
   "dependencies": {
     "@actions/core": "^1.2.6",

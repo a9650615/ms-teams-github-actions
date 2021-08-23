@@ -17,7 +17,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: opsless/ms-teams-github-actions@main
+      - uses: a9650615/ms-teams-notify@main
         if: always() # to let this step always run even if previous step failed
         with:
           github-token: ${{ github.token }}
