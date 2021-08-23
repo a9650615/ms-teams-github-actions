@@ -3,33 +3,12 @@ import * as github from '@actions/github'
 import * as axios from 'axios'
 import {Template} from 'adaptivecards-templating'
 import {templateData} from './templateData'
+import {Conclusions, StepStatus, TextBlockColor} from './types'
 
 async function sleep(ms: number): Promise<unknown> {
   return new Promise(resolve => {
     setTimeout(resolve, ms)
   })
-}
-
-enum Conclusions {
-  SUCCESS = 'success',
-  FAILURE = 'failure',
-  NEUTRAL = 'neutral',
-  CANCELLED = 'cancelled',
-  SKIPPED = 'skipped',
-  TIMED_OUT = 'timed_out',
-  ACTION_REQUIRED = 'action_required'
-}
-
-enum StepStatus {
-  QUEUED = 'queued',
-  IN_PROGRESS = 'in_progress',
-  COMPLETED = 'completed'
-}
-
-enum TextBlockColor {
-  Good = 'good',
-  Attention = 'attention',
-  Warning = 'warning'
 }
 
 const send = async () => {
@@ -68,19 +47,23 @@ const send = async () => {
   const full_commit_message = wr.data.head_commit.message || ''
   const commit_message = full_commit_message.split('\n')[0]
 
+  const isCancelledOrFailed =
+    lastStep?.conclusion === Conclusions.CANCELLED ? 'CANCELLED' : 'FAILED'
+
+  const isWarringOrAttention =
+    lastStep?.conclusion === Conclusions.CANCELLED
+      ? TextBlockColor.Warning
+      : TextBlockColor.Attention
+
   const conclusion =
     lastStep?.conclusion === Conclusions.SUCCESS
       ? 'SUCCEEDED'
-      : lastStep?.conclusion === Conclusions.CANCELLED
-      ? 'CANCELLED'
-      : 'FAILED'
+      : isCancelledOrFailed
 
   const conclusion_color =
     lastStep?.conclusion === Conclusions.SUCCESS
       ? TextBlockColor.Good
-      : lastStep?.conclusion === Conclusions.CANCELLED
-      ? TextBlockColor.Warning
-      : TextBlockColor.Attention
+      : isWarringOrAttention
 
   const rawdata = JSON.stringify(templateData)
   const template = new Template(rawdata)
