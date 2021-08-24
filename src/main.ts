@@ -44,10 +44,10 @@ const send = async () => {
     run_id: ctx.runId
   })
 
-  const pr = await o.rest.pulls.get({
+  const pr = await o.pulls.get({
     owner: ctx.repo.owner,
     repo: ctx.repo.repo,
-    pull_number: ctx.payload.pull_request?.number,
+    pull_number: ctx.payload.pull_request?.number || 0
   })
 
   const full_commit_message = wr.data.head_commit.message || ''
