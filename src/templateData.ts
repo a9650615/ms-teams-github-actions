@@ -3,8 +3,8 @@ const templateData = {
   body: [
     {
       type: 'TextBlock',
-      size: 'large',
-      weight: 'bolder',
+      size: 'Large',
+      weight: 'Bolder',
       text:
         "Workflow '${$root.workflow.name}' #${$root.workflow.run_number} ${$root.workflow.conclusion}",
       color: '${$root.workflow.conclusion_color}',
@@ -14,6 +14,22 @@ const templateData = {
     {
       type: 'TextBlock',
       text: 'on [${$root.repository.name}](${$root.repository.html_url})',
+      wrap: true,
+      spacing: 'None'
+    },
+    {
+      type: 'Container'
+    },
+    {
+      type: 'TextBlock',
+      text: '${$root.pr.title}',
+      wrap: true,
+      spacing: 'Medium',
+      size: 'Large'
+    },
+    {
+      type: 'TextBlock',
+      text: 'Create PR user',
       wrap: true,
       spacing: 'None'
     },
@@ -46,6 +62,42 @@ const templateData = {
         }
       ],
       spacing: 'Medium'
+    },
+    {
+      type: 'TextBlock',
+      text: 'Assignee user',
+      wrap: true,
+      spacing: 'None'
+    },
+    {
+      type: 'ColumnSet',
+      columns: [
+        {
+          type: 'Column',
+          items: [
+            {
+              type: 'Image',
+              style: 'Person',
+              url: '${$root.pr_author.avatar_url}',
+              size: 'Medium'
+            }
+          ],
+          width: 'auto'
+        },
+        {
+          type: 'Column',
+          items: [
+            {
+              type: 'TextBlock',
+              weight: 'Bolder',
+              text:
+                '[${$root.pr_author.username}](${$root.pr_author.html_url})',
+              wrap: true
+            }
+          ],
+          width: 'stretch'
+        }
+      ]
     },
     {
       type: 'FactSet',

@@ -1,6 +1,6 @@
 {
   "name": "@a9650615/ms-teams-notify",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "private": true,
   "description": "MS Teams Github Actions integration",
   "main": "lib/main.js",

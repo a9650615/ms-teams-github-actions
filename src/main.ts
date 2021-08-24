@@ -44,6 +44,12 @@ const send = async () => {
     run_id: ctx.runId
   })
 
+  const pr = await o.rest.pulls.get({
+    owner: ctx.repo.owner,
+    repo: ctx.repo.repo,
+    pull_number: ctx.payload.pull_request?.number,
+  })
+
   const full_commit_message = wr.data.head_commit.message || ''
   const commit_message = full_commit_message.split('\n')[0]
 
@@ -95,6 +101,14 @@ const send = async () => {
         username: ctx.payload.sender?.login,
         html_url: ctx.payload.sender?.html_url,
         avatar_url: ctx.payload.sender?.avatar_url
+      },
+      pr: {
+        title: pr.data.title
+      },
+      pr_author: {
+        username: pr.data.assignee?.login,
+        avatar_url: pr.data.assignee?.avatar_url,
+        html_url: pr.data.assignee?.html_url
       }
     }
   })
